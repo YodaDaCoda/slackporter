@@ -7,7 +7,7 @@ var Joi = require('Joi');
 
 var emojiListUrl = 'https://slack.com/api/emoji.list';
 var emojiUploadFormPath = '/admin/emoji';
-var emojiUploadImagePath = '/customize/emoji';
+var emojiUploadImagePath = '/api/emoji.add';
 
 var emojiJsonSchema = Joi.object().pattern(/.*/,
   Joi.string().regex(/^(https:\/\/[^\.]+?\.slack-edge\.com.*|alias:)/));
@@ -204,6 +204,7 @@ function transferEmoji(toOptions, emojiName, emojiUrl) {
     jar: toOptions.jar,
     followAllRedirects: true
   }, function(error, response, body) {
+      winston.info(body);
     if (error || !body) {
       return deferred.reject(error);
     }
@@ -213,11 +214,12 @@ function transferEmoji(toOptions, emojiName, emojiUrl) {
 
   var form = r.form();
 
-  form.append('add', '1');
-  form.append('crumb', toOptions.uploadCrumb);
+  //form.append('add', '1');
+  //form.append('crumb', toOptions.uploadCrumb);
   form.append('name', emojiName);
   form.append('mode', 'data');
-  form.append('img', request(emojiUrl));
+  form.append('image', request(emojiUrl));
+  form.append('token', toOptions.token);
 
   return deferred.promise;
 }
