@@ -8,6 +8,7 @@ var Joi = require('Joi');
 var emojiListUrl = 'https://slack.com/api/emoji.list';
 var emojiUploadFormPath = '/admin/emoji';
 var emojiUploadImagePath = '/api/emoji.add';
+var tokenKey = 'api_token: "';
 
 var emojiJsonSchema = Joi.object().pattern(/.*/,
   Joi.string().regex(/^(https:\/\/[^\.]+?\.slack-edge\.com.*|alias:)/));
@@ -174,9 +175,11 @@ function getEmojiUploadPage(options) {
       return deferred.reject(error);
     }
 
-    var $ = cheerio.load(body);
-
-    options.uploadCrumb = $('#addemoji > input[name="crumb"]').attr('value');
+    // HACK to pull session token from body - xoxs
+    // /api/emoji.add endpoint only works w/ session tokens
+    var idx1 = body.lastIndexOf(tokenKey);
+    var idx2 = body.idx2 = body.indexOf('"', idx1 + tokenKey.length);
+    options.sessionToken = body.substr(idx1 + tokenKey.length, idx2 - idx1 - tokenKey.length);
 
     deferred.resolve(options);
   });
@@ -219,7 +222,7 @@ function transferEmoji(toOptions, emojiName, emojiUrl) {
   form.append('name', emojiName);
   form.append('mode', 'data');
   form.append('image', request(emojiUrl));
-  form.append('token', toOptions.token);
+  form.append('token', toOptions.sessionToken);
 
   return deferred.promise;
 }
