@@ -11,83 +11,182 @@
 			name="description"
 		/>
 		<title>Slack Emoji Porter</title>
-		<link rel="stylesheet" href="static/stylesuponstyles.css" />
 		<link
-			href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext"
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+			integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link
 			rel="stylesheet"
 			type="text/css"
+			href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext"
 		/>
-		<script src="static/prefixfree.min.js"></script>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="static/stylesuponstyles.css"
+		/>
+		<script
+			defer
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+			integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script defer src="static/prefixfree.min.js"></script>
+		<script defer src="static/dynamicthingie.js"></script>
 	</head>
 	<body>
-		<div id="title">Slack Emoji Porter 🍺</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h1 class="text-center">Slack Emoji Porter 🍺</h1>
+				</div>
+			</div>
 
-		<div id="loginz">
-			<form id="source" class="login-bubble">
-				<h1>Source Account</h1>
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="text" name="from-url" class="save-me" />
-						<label>Team URL</label>
+			<div class="row">
+				<div class="col">
+					<div class="card bg-theme-1">
+						<div class="card-body">
+							<div id="loginz" class="row">
+								<div class="col-12 col-md-6">
+									<div class="card bg-theme-2">
+										<div class="card-body">
+											<h2 class="card-title">
+												Source Account
+											</h2>
+											<form id="source">
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="text"
+															name="from-url"
+															class="save-me"
+														/>
+														<label>Team URL</label>
+													</div>
+												</div>
+
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="text"
+															name="from-token"
+														/>
+														<label
+															>Slack Test Token
+															(optional)</label
+														>
+													</div>
+												</div>
+
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="textarea"
+															name="from-emoji-json"
+														/>
+														<label
+															>Raw JSON Response
+															(optional)</label
+														>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<div class="card bg-theme-2">
+										<div class="card-body">
+											<h2 class="card-title">
+												Destination Account
+											</h2>
+											<form
+												id="destination"
+											>
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="text"
+															name="to-url"
+															class="save-me"
+														/>
+														<label>Team URL</label>
+													</div>
+												</div>
+
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="text"
+															name="to-email"
+															class="save-me"
+														/>
+														<label
+															>Slack Account
+															Email</label
+														>
+													</div>
+												</div>
+
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="password"
+															name="to-password"
+														/>
+														<label>Password</label>
+													</div>
+												</div>
+
+												<div class="input-wrapper">
+													<div class="input-group">
+														<input
+															type="text"
+															name="to-token"
+														/>
+														<label
+															>Slack Test
+															Token</label
+														>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+							<!-- /loginz -->
+
+							<div class="row">
+									<div class="col text-center mt-3">
+										<button id="login">
+											Get Some Emoji 👍
+										</button>
+									</div>
+								</div>
+
+
+						</div>
 					</div>
 				</div>
+				<!-- /col -->
+			</div>
+			<!-- /row -->
 
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="text" name="from-token" />
-						<label>Slack Test Token (optional)</label>
-					</div>
+			<div class="row">
+				<div class="col">
+					<div id="emoji-list" class="hidden"></div>
 				</div>
-
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="textarea" name="from-emoji-json" />
-						<label>Raw JSON Response (optional)</label>
-					</div>
-				</div>
-			</form>
-
-			<form id="destination" class="login-bubble">
-				<h1>Destination Account</h1>
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="text" name="to-url" class="save-me" />
-						<label>Team URL</label>
-					</div>
-				</div>
-
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="text" name="to-email" class="save-me" />
-						<label>Slack Account Email</label>
-					</div>
-				</div>
-
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="password" name="to-password" />
-						<label>Password</label>
-					</div>
-				</div>
-
-				<div class="input-wrapper">
-					<div class="input-group">
-						<input type="text" name="to-token" />
-						<label>Slack Test Token</label>
-					</div>
-				</div>
-			</form>
-
-			<div>
-				<button id="login">Get Some Emoji 👍</button>
 			</div>
 		</div>
 
-		<div id="emoji-list" class="hidden"></div>
-
 		<div id="emoji-background"></div>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-		<script src="static/dynamicthingie.js"></script>
 	</body>
 </html>

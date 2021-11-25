@@ -1,3 +1,5 @@
-/node_modules/
-scratch.js
+node_modules
 slackporter.log
+private.key
+public.crt
+.env

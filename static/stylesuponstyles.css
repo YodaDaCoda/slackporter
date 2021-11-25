@@ -1,149 +1,47 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-	 v2.0 | 20110126
-	 License: none (public domain)
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+/* basic colors */
+:root {
+  --theme-color-light-body-bg: #fff;
+  --theme-color-light-body-color: #000;
+  --theme-color-dark-body-bg: #000;
+  --theme-color-dark-body-color: #fff;
+  --theme-color-dark-1: #224444;
+  --theme-color-dark-2: #223333;
+  --theme-color-dark-3: #21a1e1;
+  --theme-color-light-1: #f6f0ff;
+  --theme-color-light-2: #e8d9ff;
+  --theme-color-light-3: #83cef3;
 }
 
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+/* light/dark colors */
+:root {
+  --theme-color-body-bg: var(--theme-color-light-body-bg);
+  --theme-color-body-color: var(--theme-color-light-body-color);
+  --theme-color-1: var(--theme-color-light-1);
+  --theme-color-2: var(--theme-color-light-2);
+  --theme-color-3: var(--theme-color-light-3);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-color-body-bg: var(--theme-color-dark-body-bg);
+    --theme-color-body-color: var(--theme-color-dark-body-color);
+    --theme-color-1: var(--theme-color-dark-1);
+    --theme-color-2: var(--theme-color-dark-2);
+    --theme-color-3: var(--theme-color-dark-3);
+  }
 }
 
 body {
-  background-color: #222;
-  color: #eee;
+  --bs-body-bg: var(--theme-color-body-bg);
+  --bs-body-color: var(--theme-color-body-color);
   font-family: "Lato", sans-serif;
 }
 
-a:link,
-a:active,
-a:visited {
-  color: #eee;
+.bg-theme-1 {
+  background-color: var(--theme-color-1);
+}
+
+.bg-theme-2 {
+  background-color: var(--theme-color-2);
 }
 
 /* Awesome Form Labels inspired from: http://codepen.io/devtips/pen/bNBNBw */
@@ -152,14 +50,14 @@ input,
 button,
 #emoji-list li {
   background: none;
-  border: solid 2px #21a1e1;
+  border: solid 2px var(--theme-color-3);
   display: inline-block;
   font-size: 18px;
   padding: 15px 40px;
 }
 
 button {
-  color: #21a1e1;
+  color: var(--theme-color-3);
   min-width: 230px;
 }
 
@@ -173,11 +71,11 @@ button:active {
 input[type="text"],
 input[type="email"] {
   border: none;
-  border-bottom: solid 2px #21a1e1;
+  border-bottom: solid 2px var(--theme-color-3);
 }
 
 button:active {
-  background: #21a1e1;
+  background: var(--theme-color-3);
   color: #eee;
 }
 
@@ -215,26 +113,8 @@ button:active {
   top: -10px;
 }
 
-#title {
-  font-size: 40px;
-  padding: 20px;
-  text-align: center;
-}
-
 .hidden {
   display: none;
-}
-
-#loginz {
-  background-color: #233;
-  border-radius: 5px;
-  margin: 0 auto;
-  max-height: 9999px;
-  overflow: hidden;
-  padding: 20px;
-  text-align: center;
-  transition: all 0.8s;
-  width: 80%;
 }
 
 .loginz-collapse {
@@ -243,26 +123,7 @@ button:active {
   padding-top: 0 !important;
 }
 
-#source {
-  background-color: #244;
-}
-
-#destination {
-  background-color: #255;
-}
-
-.login-bubble {
-  border-radius: 5px;
-  margin: 10px;
-  padding: 20px;
-}
-
-@media (min-width: 1000px) {
-  .login-bubble {
-    display: inline-block;
-    width: 45%;
-  }
-}
+/* our emoji list */
 
 #emoji-list {
   background-color: #fff;
@@ -340,9 +201,4 @@ button:active {
   to {
     transform: scale(1.05);
   }
-}
-
-#loginz input[type="textarea"] {
-  font-family: Consolas, Monaco, Lucida Console, Liberation Mono,
-    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
